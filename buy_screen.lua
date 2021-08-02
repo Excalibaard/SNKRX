@@ -349,6 +349,22 @@ function BuyScreen:set_cards(shop_level, dont_spawn_effect, first_call)
   local unit_3
   local shop_level = shop_level or 1
   local tier_weights = level_to_shop_odds[shop_level]
+
+  local function countAmountCharacterBought(character)
+    local count = 0
+    for _, unit in ipairs(self.units) do
+      if unit.character == character then
+        count = count + unit.level * 3 + unit.reserve[2] * 3 + unit.reserve[1]
+      end
+    end
+    return count
+  end
+
+  local function pickUnit()
+    local characterList = tier_to_characters[random:weighted_pick(unpack(tier_weights))]
+    
+  end
+
   repeat 
     unit_1 = random:table(tier_to_characters[random:weighted_pick(unpack(tier_weights))])
     unit_2 = random:table(tier_to_characters[random:weighted_pick(unpack(tier_weights))])
